@@ -39,7 +39,8 @@ I developed a minimum viable product solution as a shiny app using R,
 
 Links to each are below:
 
-  - Detailed Analysis
+  - [Detailed
+    Analysis](http://htmlpreview.github.com/?https://github.com/bclark86/WeddingRiskModel/blob/master/01_Analysis/WeddingRiskModel_Detailed_Analysis.html)
   - [Shiny App](https://bclark.shinyapps.io/WeddingRiskModel_App/)
 
 ## Contact Information
