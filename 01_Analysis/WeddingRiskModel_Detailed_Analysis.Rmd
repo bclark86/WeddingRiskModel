@@ -57,7 +57,7 @@ include_graphics("../00_Images/bspf.png")
 ```
 &nbsp;
 
-We will leverage the Business Science Problem Framework to shape the structure of our analysis and product development. The goal here is to understand the problem, explore potential opportunities, and operationalize the outcomes. 
+We will leverage the [Business Science Problem Framework](https://www.business-science.io/bspf.html) to shape the structure of our analysis and product development. The goal here is to understand the problem, explore potential opportunities, and operationalize the outcomes. 
 
 &nbsp;
 
