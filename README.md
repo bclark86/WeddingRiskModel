@@ -40,6 +40,9 @@ I developed a minimum viable product solution as a shiny app using R,
 [Shiny](https://shiny.rstudio.com/) and
 [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/).
 
+The intent is for a user to enter their own inputs and then click “Run
+Model”. They then receive the results of their simulation.
+
   - [Shiny App](https://bclark.shinyapps.io/WeddingRiskModel_App/)
 
 ## Improve
@@ -50,6 +53,8 @@ Potential next improvements:
   - Add info tab for the simulation process
   - Turn functions into package
   - Allow for different distributions to be sampled
+  - Adapt the model to optimize the guest count to minimize risk and
+    maximize invitation count.
 
 ## Contact Information
 
