@@ -31,16 +31,15 @@ Data is generated through the tool using the [Bernoulli
 process](https://en.wikipedia.org/wiki/Bernoulli_process) and the user
 inputs. Outcomes are based on 10,000 simulation trials.
 
+  - [Detailed
+    Analysis](http://htmlpreview.github.com/?https://github.com/bclark86/WeddingRiskModel/blob/master/01_Analysis/WeddingRiskModel_Detailed_Analysis.html)
+
 ## Operationalize
 
 I developed a minimum viable product solution as a shiny app using R,
 [Shiny](https://shiny.rstudio.com/) and
 [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/).
 
-Links to each are below:
-
-  - [Detailed
-    Analysis](http://htmlpreview.github.com/?https://github.com/bclark86/WeddingRiskModel/blob/master/01_Analysis/WeddingRiskModel_Detailed_Analysis.html)
   - [Shiny App](https://bclark.shinyapps.io/WeddingRiskModel_App/)
 
 ## Contact Information

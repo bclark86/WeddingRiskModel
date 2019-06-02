@@ -4,7 +4,7 @@ runtime: shiny
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
-    source_code: embed
+    source_code: https://github.com/bclark86/WeddingRiskModel
 ---
 
 ```{r global, include=FALSE}
