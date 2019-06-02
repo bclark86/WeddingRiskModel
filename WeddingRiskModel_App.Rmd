@@ -1,0 +1,214 @@
+---
+title: "Wedding Invitation Risk Modeling"
+runtime: shiny
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    source_code: embed
+---
+
+```{r global, include=FALSE}
+# other libraries included in source scripts
+library(flexdashboard)
+
+# calculate functions are sourced by the simulate file
+source("00_Scripts/simulate.R")
+source("00_Scripts/plot.R")
+```
+
+Sidebar {.sidebar}
+======================================================================
+
+```{r}
+numericInput("budget", "Total Budget: ", 30000, min = 0, max = 1e9, 
+             step = 100, width = NULL
+)
+
+sliderInput("risk_tolerance", "Risk Tolerance: ", min = 0, max = 100, 
+            value = 20, step = 5, post  = " %"
+)
+
+numericInput("fixed_cost", "Guest Base Cost: ", 22000, min = 0, max = 1e9, 
+             step = 100, width = NULL
+)
+
+numericInput("guest_base", "Guest Base Count: ", 50, min = 0, max = 1e6, 
+             step = 1, width = NULL
+)
+
+numericInput("var_cost", "Variable Guest Cost: ", 125, min = 0, max = 1000, 
+             step = NA, width = NULL
+)
+
+numericInput("invited_guests", "Total Guests Invited: ", 150, min = 0, max = 1e6, 
+             step = NA, width = NULL
+)
+
+sliderInput("guest_prob", "Guest Probability to Attend: ", min = 0, max = 100, 
+            value = c(60, 85), step = 5, post  = " %"
+)
+
+actionButton("run", "Run Model")
+```
+
+```{r}
+# generate simulated values
+simulation_tbl <- reactive({
+  
+  input$run
+  
+  sim_tbl <- isolate(simulate_weddings(
+    k = 10000,
+    n = input$invited_guests,
+    p = c((input$guest_prob[1] / 100), (input$guest_prob[2] / 100)),
+    fixed_cost = input$fixed_cost, 
+    variable_guest_cost = input$var_cost, 
+    guest_base = input$guest_base, 
+    budget = input$budget
+  )
+  )
+  
+})
+
+# get recommendation
+recommendation <- reactive({
+  
+  input$run
+  
+  rec <- isolate(recommend(simulation_tbl(),
+                           (input$risk_tolerance / 100))
+  )
+  
+})
+
+# summarize outcomes
+risk_pct <- reactive({
+  
+  input$run
+  
+  risk <- isolate(mean(simulation_tbl()$risk < 0))
+  
+})
+
+risk_ci <- reactive({
+  
+  input$run
+  
+  ci_int_risk <- isolate(
+    quantile(simulation_tbl()$risk, p = c(0.025, .975)) %>%
+      round(0)
+    )
+  
+})
+```
+
+
+Model
+======================================================================
+
+Row
+-----------------------------------------------------------------------
+
+### Recommendation
+
+```{r}
+renderValueBox({
+  
+  valueBox(recommendation(),
+           color = ifelse(risk_pct() > (input$risk_tolerance / 100),
+                          cbPalette[7], cbPalette[4])
+  )
+  
+})
+```
+
+### Risk Probability
+
+```{r}
+
+renderValueBox({
+  
+  valueBox(paste0(risk_pct() * 100, "%"),
+           color = ifelse(risk_pct() > (input$risk_tolerance / 100),
+                          cbPalette[7], cbPalette[4])
+  )
+  
+})
+```
+
+
+### Risk Potential
+
+```{r}
+renderValueBox({
+  
+  valueBox(
+    paste0("$", risk_ci()[1], " to ", "$", risk_ci()[2]),
+    color = ifelse(risk_pct() > (input$risk_tolerance / 100),
+                          cbPalette[7], cbPalette[4])
+  )
+  
+})
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Recommendation Summary
+
+```{r}
+renderPlot({
+  
+  input$run
+  
+  p <- isolate(plot_recommendation(simulation_tbl(), (input$risk_tolerance / 100)))
+  
+  print(p)
+  
+})
+```
+
+### Risk Profile
+
+```{r}
+renderPlot({
+  
+  input$run
+  
+  p <- isolate(plot_risk(simulation_tbl(), input$var_cost))
+  
+  print(p)
+  
+})
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Guest Count Profile
+
+```{r}
+renderPlot({
+  
+  input$run
+  
+  p <- isolate(plot_guest_count(simulation_tbl()))
+  
+  print(p)
+  
+})
+```
+
+### Cost Profile
+
+```{r}
+renderPlot({
+  
+  input$run
+  
+  p <- isolate(plot_cost(simulation_tbl(), input$var_cost))
+  
+  print(p)
+  
+})
+```

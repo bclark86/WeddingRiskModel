@@ -1,0 +1,12 @@
+name: WeddingRiskModel_App
+title: WeddingRiskModel_App
+username:
+account: bclark
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 961563
+bundleId: 2125415
+url: https://bclark.shinyapps.io/WeddingRiskModel_App/
+when: 1559500361.94167
+asMultiple: FALSE
+asStatic: FALSE
