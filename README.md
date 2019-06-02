@@ -42,6 +42,15 @@ I developed a minimum viable product solution as a shiny app using R,
 
   - [Shiny App](https://bclark.shinyapps.io/WeddingRiskModel_App/)
 
+## Improve
+
+Potential next improvements:
+
+  - Add user guide instructions
+  - Add info tab for the simulation process
+  - Turn functions into package
+  - Allow for different distributions to be sampled
+
 ## Contact Information
 
 If you have any questions and/or feedback, please contact me below:
